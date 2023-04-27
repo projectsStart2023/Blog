@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thyemleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script th:inline="javascript" th:src="@{/script/jquery-3.6.3.min.js}"></script>
+<script th:inline="javascript" th:src="@{/script/readPage.js}"></script>
+</head>
+<body>
+	<h1>[ [[ ${read.blogid} ]]님의 블로그]</h1>
+			<input type="hidden" id="contextpath" th:value="${#httpServletRequest.getContextPath}">
+			<input type="hidden" id="blogseq" name="blogseq" th:value="${blogseq}">
+	<table border="1">
+		<tr>
+			<th style="width:100px; height:35px;">제목</th>
+			<td th:text="${read.title}"></td>
+		</tr>
+		<tr>
+			<th style="width:100px; height:35px;">작성일</th>
+			<td th:text="${read.regdate}"></td>
+		</tr>
+		<tr>
+			<th style="width:100px; height:35px;">내용</th>
+			<td th:text="${read.blogtext}"></td>
+		</tr>
+	</table>
+	
+	<div style="display:flex; align-items:center;">
+		<h3> 추천수 </h3>
+		<h1><div id="likecnt"> [[ ${read.likecnt} ]]</div></h1>
+		<!-- <a href="javascript:void(0);" id="likebutton" onclick="return likecnt();">추천하기</a> -->
+		<button id="likebutton" th:data-blogseq="${read.blogseq}">추천하기</button>
+		
+		
+	</div>
+	
+	<div>
+		<a sec:authorize="isAuthenticated()" th:if="${blogid}==${#authentication.name}" th:href="@{update(blogseq=${read.blogseq})}">수정</a>
+		<a sec:authorize="isAuthenticated()" th:if="${blogid}==${#authentication.name}" onclick="return validation();" th:href="@{delete(blogseq=${read.blogseq})}">삭제</a>
+	</div>
+	
+</body>
+</html>

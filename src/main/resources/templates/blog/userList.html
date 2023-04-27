@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thyemleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>[ SES Blog 목록 ]</h1>
+	<table>
+	<tr th:each="user:${list}">
+		<td>
+			<img th:if="${user.photo == 1}" th:src="@{/images/profile1.png}" style="width:100px; height:100px;">
+			<img th:if="${user.photo == 2}" th:src="@{/images/profile2.png}" style="width:100px; height:100px;">
+			<img th:if="${user.photo == 3}" th:src="@{/images/profile3.png}" style="width:100px; height:100px;">
+			<img th:if="${user.photo == 4}" th:src="@{/images/profile4.png}" style="width:100px; height:100px;">
+			<a th:href="@{/blog/user(blogid=${user.blogid})}">[[${user.blogername}]]([[${user.blogid}]])님의 블로그 보러 가기</a>
+		</td>
+	</tr>
+	</table>
+</body>
+</html>

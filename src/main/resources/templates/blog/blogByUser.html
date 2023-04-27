@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thyemleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>[ [[ ${blogid} ]]님의 블로그 ]</h1>
+	<table border="1">
+		<tr>
+			<th>번호</th>
+			<th style="width: 300px;">제목</th>
+			<th>작성일</th>
+		</tr>
+		<tr th:each="blogByUser:${blogByUser}">
+			<td th:text="${blogByUser.blogseq}"></td>
+			<td><a th:href="@{/blog/read(blogseq=${blogByUser.blogseq})}" th:text="${blogByUser.title}"></a></td>
+			<td th:text="${blogByUser.regdate}"></td>
+		</tr>
+	</table>
+	
+	<a sec:authorize="isAuthenticated()" th:if="${blogid}==${#authentication.name}" th:href="@{/blog/write}">글쓰기</a>
+	<!-- sec:authorize="isAuthenticated()" : 권한에 관계없이 로그인 인증을 받은 경우 태그 안의 내용 출력 -->
+	<!-- sec:authorize="isAnonymouse()" : 권한이 없는 익명의 사용자일 경우 태그 안의 내용 출력 -->
+	<!-- 참조 : https://codevang.tistory.com/272 -->
+</body>
+</html>

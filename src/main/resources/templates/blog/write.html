@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thyemleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form th:action="@{/blog/write}" method="POST">
+		<table>
+			<tr>
+				<th style="width:77px; text-align:left;">제목</th>
+				<td><input type="text" name="title" required></td>
+			</tr>
+			<tr>
+				<th style="width:77px; text-align:left;">내용</th>
+				<td><input type="text" name="blogtext" required></td>
+			</tr>
+		</table>
+		
+		<br>
+		<input type="submit" value="등록">
+	</form>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.softsociety.blog.dao.BlogDAO">
+
+	<select id="selectUserList" resultType="Member">
+		select *
+		from blog_member
+		order by blogid
+	</select>
+	
+	<select id="blogByUser" parameterType="String" resultType="Blog">
+		select *
+		from blog_board
+		where blogid = #{blogid}
+	</select>
+	
+	<select id="read" parameterType="int" resultType="Blog">
+		select *
+		from blog_board
+		where blogseq = #{blogseq}
+	</select>
+	
+	<insert id="write" parameterType="Blog">
+		insert into blog_board
+			(blogseq, blogid, title, blogtext)
+		values
+			(blog_board_seq.nextval, #{blogid}, #{title}, #{blogtext})
+	</insert>
+	
+	<update id="likecnt" parameterType="int">
+		update blog_board
+		set likecnt = likecnt+1
+		where blogseq = #{blogseq}
+	</update>
+	
+	<update id="update" parameterType="Blog">
+		update blog_board
+		set title=#{title}, blogtext=#{blogtext}
+		where blogseq=#{blogseq}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from blog_board
+		where blogseq=#{blogseq}
+	</delete>
+</mapper>
